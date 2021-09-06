@@ -4,9 +4,9 @@ Implemented the two player as well as a single player mode. AI implemented using
 
 Online play coming soon.
 
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (8).png?raw=true "Optional Title")
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (9).png?raw=true "Optional Title")
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (10).png?raw=true "Optional Title")
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (11).png?raw=true "Optional Title")
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (12).png?raw=true "Optional Title")
-![Alt text](Tic-Tac-Toe-Hybrid/Screenshots/Screenshot (13).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (8).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (9).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (10).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (11).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (12).png?raw=true "Optional Title")
+![Alt text](/Screenshots/Screenshot (13).png?raw=true "Optional Title")
