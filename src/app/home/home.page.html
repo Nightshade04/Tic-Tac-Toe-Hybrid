@@ -1,20 +1,50 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>
-      Blank
+      Tic Tac Toe
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Welcome!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="assets/img/Tic_Tac_Toe.jpg">
+      <ion-grid fixed>
+        <!-- Various stages of menu -->
+        <div *ngIf="!modeSelected">
+          Select Play Mode
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="selectMode($event.target)" expand="block" class="ion-margin-top">Single Player</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="selectMode($event.target)" expand="block" class="ion-margin-top">Multi Player</ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div *ngIf="modeSelected">
+          Select Level
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="singlePlayerNavigation($event.target)" expand="block" class="ion-margin-top">Online</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="singlePlayerNavigation($event.target)" expand="block" class="ion-margin-top">Easy</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="singlePlayerNavigation($event.target)" expand="block" class="ion-margin-top">Hard</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="singlePlayerNavigation($event.target)" expand="block" class="ion-margin-top">Back</ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

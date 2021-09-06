@@ -1,5 +1,7 @@
 {
   "name": "Tic-Tac-Toe-Hybrid",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

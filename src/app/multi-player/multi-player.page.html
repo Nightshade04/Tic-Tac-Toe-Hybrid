@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Tic Tac Toe
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-button (click)="move('00', $event.target)" id="00" fill="outline"></ion-button>
+    <ion-button (click)="move('01', $event.target)" id="01" fill="outline"></ion-button>
+    <ion-button (click)="move('02', $event.target)" id="02" fill="outline"></ion-button>
+    <br>
+    <ion-button (click)="move('10', $event.target)" id="10" fill="outline"></ion-button>
+    <ion-button (click)="move('11', $event.target)" id="11" fill="outline"></ion-button>
+    <ion-button (click)="move('12', $event.target)" id="12" fill="outline"></ion-button>
+    <br>
+    <ion-button (click)="move('20', $event.target)" id="20" fill="outline"></ion-button>
+    <ion-button (click)="move('21', $event.target)" id="21" fill="outline"></ion-button>
+    <ion-button (click)="move('22', $event.target)" id="22" fill="outline"></ion-button>
+  </div>
+
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Stats</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>X - Wins</ion-col>
+            <ion-col>O - Wins</ion-col>
+            <ion-col>Draws</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{stats.x_wins}}</ion-col>
+            <ion-col>{{stats.o_wins}}</ion-col>
+            <ion-col>{{stats.draws}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card expand='block'>
+          <ion-card-header (click)='resetBoard()'>Reset Board</ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card expand='block'>
+          <ion-card-header>Next Turn: {{nextTurn}}</ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

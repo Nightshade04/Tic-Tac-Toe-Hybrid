@@ -11,6 +11,22 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'online-play',
+    loadChildren: () => import('./online-play/online-play.module').then( m => m.OnlinePlayPageModule)
+  },
+  {
+    path: 'single-player',
+    loadChildren: () => import('./single-player/single-player.module').then( m => m.SinglePlayerPageModule)
+  },
+  {
+    path: 'multi-player',
+    loadChildren: () => import('./multi-player/multi-player.module').then( m => m.MultiPlayerPageModule)
+  },
 ];
 
 @NgModule({
