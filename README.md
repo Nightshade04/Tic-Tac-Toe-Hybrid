@@ -4,9 +4,9 @@ Implemented the two player as well as a single player mode. AI implemented using
 
 Online play coming soon.
 
-![Alt text](/Screenshots/Screenshot (8).png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshot (9).png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshot (10).png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshot (11).png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshot (12).png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshot (13).png?raw=true "Optional Title")
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(8).png)
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(9).png)
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(10).png)
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(11).png)
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(12).png)
+![Alt text](https://github.com/Nightshade04/Tic-Tac-Toe-Hybrid/blob/master/Screenshots/Screenshot%20(13).png)
