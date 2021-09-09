@@ -27,5 +27,15 @@ export class AppComponent {
     private platform: Platform,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen
-  ) {}
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
+
 }

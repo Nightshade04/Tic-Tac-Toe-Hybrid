@@ -35,11 +35,13 @@
             <ion-col>Player</ion-col>
             <ion-col>Bot</ion-col>
             <ion-col>Draws</ion-col>
+            <ion-col (click)='chooseChar()'>Player Char</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>{{stats.player_wins}}</ion-col>
             <ion-col>{{stats.bot_wins}}</ion-col>
             <ion-col>{{stats.draws}}</ion-col>
+            <ion-col (click)='chooseChar()'>'{{playerChar}}'</ion-col>
           </ion-row>
         </ion-grid>
       </ion-card-content>

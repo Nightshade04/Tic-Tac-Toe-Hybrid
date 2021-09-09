@@ -20,6 +20,8 @@ export class SinglePlayerPage implements OnInit {
     bot_wins: 0,
     draws: 0
   };
+  public playerChar: string = '';
+  public botSymbol: string = '';
   private turn: number = 1;
   public nextTurn: boolean = true;
   private overFlag: boolean = false;
@@ -37,7 +39,7 @@ export class SinglePlayerPage implements OnInit {
 
   ngOnInit() {
     this.getMode();
-    this.resetBoard()
+    this.chooseChar();
   }
 
   getMode() {
@@ -106,18 +108,36 @@ export class SinglePlayerPage implements OnInit {
   }
 
   // AI making its move
-  ai_move() {
-    let bestScore = 9999;
+  ai_move(botChar: string) {
     let position = '';
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (this.board[i][j] == '-') {
-          this.board[i][j] = 'O';
-          let currentScore = this.minimax(0, true, this.board);
-          this.board[i][j] = '-';
-          if (currentScore < bestScore) {
-            bestScore = currentScore
-            position = i + '' + j
+    if (botChar == 'X') {
+      let bestScore = -9999;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (this.board[i][j] == '-') {
+            this.board[i][j] = 'X';
+            let currentScore = this.minimax(0, false, this.board);
+            this.board[i][j] = '-';
+            if (currentScore > bestScore) {
+              bestScore = currentScore
+              position = i + '' + j
+            }
+          }
+        }
+      }
+    }
+    else if (this.botSymbol == 'O') {
+      let bestScore = 9999;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (this.board[i][j] == '-') {
+            this.board[i][j] = 'O';
+            let currentScore = this.minimax(0, true, this.board);
+            this.board[i][j] = '-';
+            if (currentScore < bestScore) {
+              bestScore = currentScore
+              position = i + '' + j
+            }
           }
         }
       }
@@ -169,15 +189,8 @@ export class SinglePlayerPage implements OnInit {
       this.utilities.presentToast('Game is already over. Please reset board to play again!');
     }
     else {
-      if (element.textContent == '') {
-        // Player Made a move
-        element.textContent = 'X';
-        this.board[position.charAt(0)][position.charAt(1)] = 'X';
-        this.turn = this.turn + 1;
-        this.nextTurn = false;
-
+      if (element === undefined) {
         setTimeout(() => {
-
           if (!this.overFlag) {
             let botPosition = '';
             if (this.ai_level == 'easy') {
@@ -186,8 +199,8 @@ export class SinglePlayerPage implements OnInit {
               let placeFound = false;
               do {
                 if (this.board[row][col] == '-') {
-                  document.getElementById(row + '' + col).innerText = 'O';
-                  this.board[row][col] = 'O';
+                  document.getElementById(row + '' + col).innerText = this.botSymbol;
+                  this.board[row][col] = this.botSymbol;
                   placeFound = true;
                 }
                 else {
@@ -199,30 +212,77 @@ export class SinglePlayerPage implements OnInit {
             }
             else if (this.ai_level == 'hard') {
               // Bot Made a move
-              let aiPosition = this.ai_move();
-              document.getElementById(aiPosition).innerText = 'O';
-              this.board[aiPosition.charAt(0)][aiPosition.charAt(1)] = 'O';
+              let aiPosition = this.ai_move(this.botSymbol);
+              document.getElementById(aiPosition).innerText = this.botSymbol;
+              this.board[aiPosition.charAt(0)][aiPosition.charAt(1)] = this.botSymbol;
               botPosition = aiPosition;
             }
             this.turn = this.turn + 1;
             this.nextTurn = true;
 
             // Checking if anyone won after the most recent move
-            this.checkWinner(botPosition, 'O');
+            this.checkWinner(botPosition, this.botSymbol);
           }
         }, 500);
 
-        // Checking if anyone won after the most recent move
-        this.checkWinner(position, 'X');
-
-        if (this.turn == 10) {
-          this.nextTurn = null;
-        }
-
       }
-      // clicking an already clicked button i.e. trying to place marker on a non-empty place
       else {
-        this.utilities.presentToast('Already filled. Choose another place.');
+        if (element.textContent == '') {
+          // Player Made a move
+          element.textContent = this.playerChar;
+          this.board[position.charAt(0)][position.charAt(1)] = this.playerChar;
+          this.turn = this.turn + 1;
+          this.nextTurn = false;
+
+          // Checking if anyone won after the most recent move
+          this.checkWinner(position, this.playerChar);
+
+          setTimeout(() => {
+
+            if (!this.overFlag) {
+              let botPosition = '';
+              if (this.ai_level == 'easy') {
+                let row = this.randomizer();
+                let col = this.randomizer();
+                let placeFound = false;
+                do {
+                  if (this.board[row][col] == '-') {
+                    document.getElementById(row + '' + col).innerText = this.botSymbol;
+                    this.board[row][col] = this.botSymbol;
+                    placeFound = true;
+                  }
+                  else {
+                    row = this.randomizer();
+                    col = this.randomizer();
+                  }
+                } while (!placeFound);
+                botPosition = row + '' + col;
+              }
+              else if (this.ai_level == 'hard') {
+                // Bot Made a move
+                let aiPosition = this.ai_move(this.botSymbol);
+                document.getElementById(aiPosition).innerText = this.botSymbol;
+                this.board[aiPosition.charAt(0)][aiPosition.charAt(1)] = this.botSymbol;
+                botPosition = aiPosition;
+              }
+              this.turn = this.turn + 1;
+              this.nextTurn = true;
+
+              // Checking if anyone won after the most recent move
+              this.checkWinner(botPosition, this.botSymbol);
+            }
+          }, 500);
+
+
+          if (this.turn == 10) {
+            this.nextTurn = null;
+          }
+
+        }
+        // clicking an already clicked button i.e. trying to place marker on a non-empty place
+        else {
+          this.utilities.presentToast('Already filled. Choose another place.');
+        }
       }
     }
   }
@@ -322,12 +382,12 @@ export class SinglePlayerPage implements OnInit {
         }
       ]
     }
-    if (moveVar == 'X') {
-      alertOptions.message = "Congratulations! First Player WON!";
+    if (moveVar == this.playerChar) {
+      alertOptions.message = "Congratulations! You WON!";
       this.stats.player_wins = this.stats.player_wins + 1;
     }
-    else if (moveVar == 'O') {
-      alertOptions.message = "Congratulations! Second Player WON!";
+    else if (moveVar == this.botSymbol) {
+      alertOptions.message = "Boo-Hoo! You LOSE!";
       this.stats.bot_wins = this.stats.bot_wins + 1;
     }
     else {
@@ -360,6 +420,47 @@ export class SinglePlayerPage implements OnInit {
     this.turn = 1;
     this.nextTurn = true;
     this.overFlag = false;
+  }
+
+  updateChar(char: string) {
+    this.resetBoard();
+    this.playerChar = char;
+    if (this.playerChar == 'X') {
+      this.botSymbol = 'O';
+    }
+    else {
+      this.botSymbol = 'X';
+      this.nextTurn = false;
+      this.move(undefined, undefined);
+    }
+  }
+
+  chooseChar() {
+
+    if (!this.overFlag && this.turn != 1) {
+      this.utilities.presentToast('Cannot change Symbol. Finish the current game and try again!');
+    }
+    else {
+      let alertOptions: AlertOptions = {
+        header: "Character Select",
+        message: "Choose Your Character:",
+        buttons: [
+          {
+            text: "X",
+            handler: () => {
+              this.updateChar('X');
+            }
+          },
+          {
+            text: "O",
+            handler: () => {
+              this.updateChar('O');
+            }
+          }
+        ]
+      }
+      this.utilities.presentWinnerPopup(alertOptions);
+    }
   }
 
 }
