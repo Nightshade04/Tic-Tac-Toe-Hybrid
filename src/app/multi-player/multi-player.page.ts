@@ -184,7 +184,7 @@ export class MultiPlayerPage implements OnInit {
       alertOptions.message = "Game ended in a draw!";
       this.stats.draws = this.stats.draws + 1;
     }
-    this.utilities.presentWinnerPopup(alertOptions);
+    this.utilities.presentPopup(alertOptions);
   }
 
   resetBoard() {

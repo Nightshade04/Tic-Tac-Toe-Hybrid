@@ -25,6 +25,7 @@ export class SinglePlayerPage implements OnInit {
   private turn: number = 1;
   public nextTurn: boolean = true;
   private overFlag: boolean = false;
+  private chooseCharFlag: boolean = false;
   private ai_level: string = null;
   private scores: any = {
     X: 1,
@@ -45,7 +46,6 @@ export class SinglePlayerPage implements OnInit {
   getMode() {
     this.activatedRoute.queryParams.subscribe(params => {
       this.ai_level = params.mode;
-      console.log(this.ai_level)
     })
   }
 
@@ -185,60 +185,13 @@ export class SinglePlayerPage implements OnInit {
   }
 
   move(position: string, element: any) {
-    if (this.overFlag) {
-      this.utilities.presentToast('Game is already over. Please reset board to play again!');
-    }
-    else {
-      if (element === undefined) {
-        setTimeout(() => {
-          if (!this.overFlag) {
-            let botPosition = '';
-            if (this.ai_level == 'easy') {
-              let row = this.randomizer();
-              let col = this.randomizer();
-              let placeFound = false;
-              do {
-                if (this.board[row][col] == '-') {
-                  document.getElementById(row + '' + col).innerText = this.botSymbol;
-                  this.board[row][col] = this.botSymbol;
-                  placeFound = true;
-                }
-                else {
-                  row = this.randomizer();
-                  col = this.randomizer();
-                }
-              } while (!placeFound);
-              botPosition = row + '' + col;
-            }
-            else if (this.ai_level == 'hard') {
-              // Bot Made a move
-              let aiPosition = this.ai_move(this.botSymbol);
-              document.getElementById(aiPosition).innerText = this.botSymbol;
-              this.board[aiPosition.charAt(0)][aiPosition.charAt(1)] = this.botSymbol;
-              botPosition = aiPosition;
-            }
-            this.turn = this.turn + 1;
-            this.nextTurn = true;
-
-            // Checking if anyone won after the most recent move
-            this.checkWinner(botPosition, this.botSymbol);
-          }
-        }, 500);
-
+    if (this.chooseCharFlag) {
+      if (this.overFlag) {
+        this.utilities.presentToast('Game is already over. Please reset board to play again!');
       }
       else {
-        if (element.textContent == '') {
-          // Player Made a move
-          element.textContent = this.playerChar;
-          this.board[position.charAt(0)][position.charAt(1)] = this.playerChar;
-          this.turn = this.turn + 1;
-          this.nextTurn = false;
-
-          // Checking if anyone won after the most recent move
-          this.checkWinner(position, this.playerChar);
-
+        if (element === undefined) {
           setTimeout(() => {
-
             if (!this.overFlag) {
               let botPosition = '';
               if (this.ai_level == 'easy') {
@@ -267,23 +220,75 @@ export class SinglePlayerPage implements OnInit {
               }
               this.turn = this.turn + 1;
               this.nextTurn = true;
-
+  
               // Checking if anyone won after the most recent move
               this.checkWinner(botPosition, this.botSymbol);
             }
           }, 500);
-
-
-          if (this.turn == 10) {
-            this.nextTurn = null;
-          }
-
+  
         }
-        // clicking an already clicked button i.e. trying to place marker on a non-empty place
         else {
-          this.utilities.presentToast('Already filled. Choose another place.');
+          if (element.textContent == '') {
+            // Player Made a move
+            element.textContent = this.playerChar;
+            this.board[position.charAt(0)][position.charAt(1)] = this.playerChar;
+            this.turn = this.turn + 1;
+            this.nextTurn = false;
+  
+            // Checking if anyone won after the most recent move
+            this.checkWinner(position, this.playerChar);
+  
+            setTimeout(() => {
+  
+              if (!this.overFlag) {
+                let botPosition = '';
+                if (this.ai_level == 'easy') {
+                  let row = this.randomizer();
+                  let col = this.randomizer();
+                  let placeFound = false;
+                  do {
+                    if (this.board[row][col] == '-') {
+                      document.getElementById(row + '' + col).innerText = this.botSymbol;
+                      this.board[row][col] = this.botSymbol;
+                      placeFound = true;
+                    }
+                    else {
+                      row = this.randomizer();
+                      col = this.randomizer();
+                    }
+                  } while (!placeFound);
+                  botPosition = row + '' + col;
+                }
+                else if (this.ai_level == 'hard') {
+                  // Bot Made a move
+                  let aiPosition = this.ai_move(this.botSymbol);
+                  document.getElementById(aiPosition).innerText = this.botSymbol;
+                  this.board[aiPosition.charAt(0)][aiPosition.charAt(1)] = this.botSymbol;
+                  botPosition = aiPosition;
+                }
+                this.turn = this.turn + 1;
+                this.nextTurn = true;
+  
+                // Checking if anyone won after the most recent move
+                this.checkWinner(botPosition, this.botSymbol);
+              }
+            }, 500);
+  
+  
+            if (this.turn == 10) {
+              this.nextTurn = null;
+            }
+  
+          }
+          // clicking an already clicked button i.e. trying to place marker on a non-empty place
+          else {
+            this.utilities.presentToast('Already filled. Choose another place.');
+          }
         }
       }
+    }
+    else {
+      this.utilities.presentToast('Choose a character to start playing!');
     }
   }
 
@@ -394,7 +399,7 @@ export class SinglePlayerPage implements OnInit {
       alertOptions.message = "Game ended in a draw!";
       this.stats.draws = this.stats.draws + 1;
     }
-    this.utilities.presentWinnerPopup(alertOptions);
+    this.utilities.presentPopup(alertOptions);
   }
 
   resetBoard() {
@@ -420,10 +425,18 @@ export class SinglePlayerPage implements OnInit {
     this.turn = 1;
     this.nextTurn = true;
     this.overFlag = false;
+    // this.chooseCharFlag = false;
+
+    if(this.playerChar == 'O') {
+      this.nextTurn = false;
+      this.move(undefined, undefined);
+    }
+
   }
 
   updateChar(char: string) {
     this.resetBoard();
+    this.chooseCharFlag = true;
     this.playerChar = char;
     if (this.playerChar == 'X') {
       this.botSymbol = 'O';
@@ -436,11 +449,11 @@ export class SinglePlayerPage implements OnInit {
   }
 
   chooseChar() {
-
     if (!this.overFlag && this.turn != 1) {
       this.utilities.presentToast('Cannot change Symbol. Finish the current game and try again!');
     }
     else {
+      this.chooseCharFlag = false;
       let alertOptions: AlertOptions = {
         header: "Character Select",
         message: "Choose Your Character:",
@@ -459,7 +472,7 @@ export class SinglePlayerPage implements OnInit {
           }
         ]
       }
-      this.utilities.presentWinnerPopup(alertOptions);
+      this.utilities.presentPopup(alertOptions);
     }
   }
 

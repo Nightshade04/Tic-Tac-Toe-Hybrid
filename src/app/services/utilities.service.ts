@@ -20,7 +20,7 @@ export class UtilitiesService {
     toast.present();
   }
 
-  async presentWinnerPopup(options: AlertOptions){
+  async presentPopup(options: AlertOptions){
     let alert = this.alertController.create(options);
     (await alert).present();
   }
