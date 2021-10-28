@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-online-play',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnlinePlayPage implements OnInit {
 
-  constructor() { }
+  private matchHistory = [];
+  private stats: any = {
+    player_wins: 0,
+    palyer_losses: 0,
+    draws: 0
+  }
+
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
   }

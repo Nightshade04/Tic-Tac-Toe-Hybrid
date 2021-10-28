@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'multi-player',
     loadChildren: () => import('./multi-player/multi-player.module').then( m => m.MultiPlayerPageModule)
   },
+  {
+    path: 'online-match',
+    loadChildren: () => import('./online-match/online-match.module').then( m => m.OnlineMatchPageModule)
+  },
 ];
 
 @NgModule({

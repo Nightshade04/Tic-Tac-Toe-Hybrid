@@ -49,8 +49,8 @@ export class HomePage {
       this.navCtrl.navigateForward(['/single-player'], navExtras)
     }
     else if (pressedButton == 'Online') {
-      this.utilities.presentToast('Online Mode Coming Soon!');
-      // this.navCtrl.navigateForward(['/online-play'])
+      // this.utilities.presentToast('Online Mode Coming Soon!');
+      this.navCtrl.navigateForward(['/online-play']);
     }
     else if (pressedButton == 'Back') {
       this.modeSelected = false;
