@@ -220,12 +220,12 @@ export class SinglePlayerPage implements OnInit {
               }
               this.turn = this.turn + 1;
               this.nextTurn = true;
-  
+
               // Checking if anyone won after the most recent move
               this.checkWinner(botPosition, this.botSymbol);
             }
-          }, 500);
-  
+          }, 100);
+
         }
         else {
           if (element.textContent == '') {
@@ -234,12 +234,12 @@ export class SinglePlayerPage implements OnInit {
             this.board[position.charAt(0)][position.charAt(1)] = this.playerChar;
             this.turn = this.turn + 1;
             this.nextTurn = false;
-  
+
             // Checking if anyone won after the most recent move
             this.checkWinner(position, this.playerChar);
-  
+
             setTimeout(() => {
-  
+
               if (!this.overFlag) {
                 let botPosition = '';
                 if (this.ai_level == 'easy') {
@@ -268,17 +268,17 @@ export class SinglePlayerPage implements OnInit {
                 }
                 this.turn = this.turn + 1;
                 this.nextTurn = true;
-  
+
                 // Checking if anyone won after the most recent move
                 this.checkWinner(botPosition, this.botSymbol);
               }
-            }, 500);
-  
-  
+            }, 100);
+
+
             if (this.turn == 10) {
               this.nextTurn = null;
             }
-  
+
           }
           // clicking an already clicked button i.e. trying to place marker on a non-empty place
           else {
@@ -427,7 +427,7 @@ export class SinglePlayerPage implements OnInit {
     this.overFlag = false;
     // this.chooseCharFlag = false;
 
-    if(this.playerChar == 'O') {
+    if (this.playerChar == 'O') {
       this.nextTurn = false;
       this.move(undefined, undefined);
     }
@@ -475,5 +475,4 @@ export class SinglePlayerPage implements OnInit {
       this.utilities.presentPopup(alertOptions);
     }
   }
-
 }
