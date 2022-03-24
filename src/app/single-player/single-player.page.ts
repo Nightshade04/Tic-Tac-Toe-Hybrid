@@ -435,16 +435,15 @@ export class SinglePlayerPage implements OnInit {
   }
 
   updateChar(char: string) {
-    this.resetBoard();
     this.chooseCharFlag = true;
     this.playerChar = char;
+    this.resetBoard();
     if (this.playerChar == 'X') {
       this.botSymbol = 'O';
     }
     else {
       this.botSymbol = 'X';
       this.nextTurn = false;
-      this.move(undefined, undefined);
     }
   }
 

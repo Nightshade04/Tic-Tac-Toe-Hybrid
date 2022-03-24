@@ -25,4 +25,9 @@ export class UtilitiesService {
     (await alert).present();
   }
 
+  async getMatchhistoryForUser() {
+
+    
+  }
+
 }
