@@ -28,22 +28,28 @@
             <ion-col>{{stats.draws}}</ion-col>
           </ion-row>
         </ion-grid>
+        <ion-grid>
+          <ion-button color="success" expand='block' (click)="enterQueue()">Play</ion-button>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
-    <ion-button color = "success" expand='block' (click)="enterQueue()">Play</ion-button>
   </div>
   <div>
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Game Archive</ion-label>
-      </ion-list-header>
-      <!-- Apply a ngFor here to traverse in the list of matches -->
-      <ion-item *ngFor="let match in matchHistory" >
-        <ion-img src="{{match.userImg}}"></ion-img>
-        <ion-label>{{match.userName}}</ion-label>
-        <ion-label>{{match.status}}</ion-label>
-      </ion-item>
-    </ion-list>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Game Archive</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <!-- Apply a ngFor here to traverse in the list of matches -->
+          <ion-item *ngFor="let match in matchHistory">
+            <ion-img src="{{match.userImg}}"></ion-img>
+            <ion-label>{{match.userName}}</ion-label>
+            <ion-label>{{match.status}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
   </div>
 
 </ion-content>

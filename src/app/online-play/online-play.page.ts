@@ -18,13 +18,13 @@ export class OnlinePlayPage implements OnInit {
   }
 
   constructor(
-    private profileService: ProfileService,
-    private utilityService: UtilitiesService
+    // private profileService: ProfileService,
+    // private utilityService: UtilitiesService
   ) { }
 
   ngOnInit() {
-    this.user = this.profileService.getUser();
-    this.matchHistory = this.profileService.getMatchHistoryOfUser(this.user);
+    // this.user = this.profileService.getUser();
+    // this.matchHistory = this.profileService.getMatchHistoryOfUser(this.user);
   }
 
   enterQueue() {
